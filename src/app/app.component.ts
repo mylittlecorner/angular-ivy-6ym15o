@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   unblockingTime: string;
   constructor() {
     this.blockingTime = '2022-11-25T03:20:00';
-    this.unblockingTime = '2022-11-25T12:02:00';
+    this.unblockingTime = '2022-11-25T12:46:00';
   }
 
   cmpTime(blkTime: Date, ublkTime: Date, crntTime: Date): boolean {
@@ -40,21 +40,25 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.testVariableObservable = new Observable((observer) => {
-        let currentDate = new Date();
-        if (
-          this.cmpTime(
-            new Date(this.blockingTime),
-            new Date(this.unblockingTime),
-            currentDate
-          )
-        ) {
-          observer.next(currentDate.toTimeString());
-        } else {
-          observer.next('NOPE');
-        }
+      let currentDate = new Date();
+      if (
+        this.cmpTime(
+          new Date(this.blockingTime),
+          new Date(this.unblockingTime),
+          currentDate
+        )
+      ) {
+        observer.next(currentDate.toTimeString());
+      } else {
+        observer.next('NOPE');
+      }
     });
+
+    setInterval(() => {
+      this.Trigger();
+    }, 1000);
   }
-  onClickButton() {
+  Trigger() {
     this.testVariableObservable.subscribe((val) => {
       this.testVariable = val;
     });
