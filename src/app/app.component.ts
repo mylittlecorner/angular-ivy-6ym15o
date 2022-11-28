@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Stuff } from './Utils/stuff';
 
 @Component({
   selector: 'my-app',
@@ -7,14 +8,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  testVariable: string;
-  testVariableObservable: Observable<string>;
-  blockingTime: string;
-  unblockingTime: string;
-  constructor() {
-    this.blockingTime = '2022-11-25T03:20:00';
-    this.unblockingTime = '2022-11-25T12:46:00';
-  }
+  testVariable: boolean[];
+  testVariableObservable: Observable<boolean[]>;
+  timesList: Array<Stuff>;
 
   cmpTime(blkTime: Date, ublkTime: Date, crntTime: Date): boolean {
     let blkTimeNumber =
@@ -39,28 +35,42 @@ export class AppComponent implements OnInit {
     return false;
   }
   ngOnInit() {
-    this.testVariableObservable = new Observable((observer) => {
-      let currentDate = new Date();
-      if (
-        this.cmpTime(
-          new Date(this.blockingTime),
-          new Date(this.unblockingTime),
-          currentDate
-        )
-      ) {
-        observer.next(currentDate.toTimeString());
-      } else {
-        observer.next('NOPE');
-      }
-    });
+    this.timesList = new Array<Stuff>();
+    this.timesList.push(
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:00')
+    );
+    this.timesList.push(
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:10')
+    );
+    this.timesList.push(
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:20')
+    );
+    this.timesList.push(
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:30')
+    );
 
+    this.testVariableObservable = new Observable((observer) => {
+      let results = new Array<boolean>();
+      let currentDate = new Date();
+      for (let i = 0; i < this.timesList.length; i++) {
+        results.push(
+          this.cmpTime(
+            new Date(this.timesList[i].blockingTime),
+            new Date(this.timesList[i].unblockingTime),
+            currentDate
+          )
+        );
+      }
+      observer.next(results);
+    });
     setInterval(() => {
       this.Trigger();
     }, 1000);
   }
   Trigger() {
     this.testVariableObservable.subscribe((val) => {
+      console.log(val);
       this.testVariable = val;
     });
   }
-} 
+}
