@@ -63,4 +63,4 @@ export class AppComponent implements OnInit {
       this.testVariable = val;
     });
   }
-}
+} 
