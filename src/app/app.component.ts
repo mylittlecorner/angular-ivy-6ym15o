@@ -37,16 +37,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.timesList = new Array<Stuff>();
     this.timesList.push(
-      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:30:00')
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:00')
     );
     this.timesList.push(
-      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:30:10')
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:10')
     );
     this.timesList.push(
-      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:30:20')
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:20')
     );
     this.timesList.push(
-      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:30:30')
+      new Stuff('2022-11-25T03:20:00', '2022-11-25T14:32:30')
     );
 
     this.testVariableObservable = new Observable((observer) => {
