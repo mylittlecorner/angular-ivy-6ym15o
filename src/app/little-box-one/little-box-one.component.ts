@@ -20,10 +20,10 @@ export class LittleBoxOneComponent implements OnInit {
   ngOnInit() {}
 
   receiveMessage($event) {
-    console.log('test');
+    console.log($event.target.value);
   }
 
   updateText($event) {
-    console.log($event.target.value);
+    this.In = $event.target.value;
   }
 }

@@ -18,10 +18,9 @@ export class LittleBoxOneContentComponent implements OnInit {
   }
 
   constructor() {}
+  ngOnInit() {}
 
   inputChanged() {
     this.textChanged.emit(this.InputText);
   }
-
-  ngOnInit() {}
 }
