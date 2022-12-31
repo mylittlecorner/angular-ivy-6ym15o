@@ -7,10 +7,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class LittleBoxOneButtonComponent implements OnInit {
   @Input() input: string;
-  @Output() stamp = new EventEmitter();
-  constructor() {}
+  @Output() stamp = new EventEmitter<string>();
 
+  constructor() {}
   ngOnInit() {}
+
   update() {
     var text = new Date().toString();
     this.stamp.emit(text);
