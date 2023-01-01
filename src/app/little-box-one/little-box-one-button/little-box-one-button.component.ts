@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LittleBoxOneServiceService } from '../little-box-one-service.service';
 
 @Component({
   selector: 'app-little-box-one-button',
@@ -6,14 +7,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./little-box-one-button.component.css'],
 })
 export class LittleBoxOneButtonComponent implements OnInit {
-  @Input() input: string;
-  @Output() stamp = new EventEmitter<string>();
-
-  constructor() {}
-  ngOnInit() {}
+  input: string;
+  constructor(private littleBoxOneServiceService: LittleBoxOneServiceService) {}
+  ngOnInit() {
+    this.littleBoxOneServiceService.text.subscribe((data: string) => {
+      this.input = data;
+    });
+  }
 
   update() {
     var text = new Date().toString();
-    this.stamp.emit(text);
+    this.littleBoxOneServiceService.updateStamp(text);
   }
 }

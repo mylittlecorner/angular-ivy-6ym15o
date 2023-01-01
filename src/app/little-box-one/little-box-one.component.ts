@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LittleBoxOneServiceService } from './little-box-one-service.service';
 
 @Component({
   selector: 'app-little-box-one',
@@ -6,24 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./little-box-one.component.css'],
 })
 export class LittleBoxOneComponent implements OnInit {
-  private _in: string;
-  get In() {
-    return this._in;
+  private _text: string;
+  get Text() {
+    return this._text;
   }
-  set In(value: string) {
-    this._in = value;
-  }
-
-  constructor() {
-    this.In = 'Testing';
-  }
-  ngOnInit() {}
-
-  receiveMessage($event) {
-    console.log($event);
+  set Text(value: string) {
+    this._text = value;
   }
 
-  updateText($event) {
-    this.In = $event;
+  constructor(private littleBoxOneServiceService: LittleBoxOneServiceService) {}
+  ngOnInit() {
+    this.littleBoxOneServiceService.stamp.subscribe((data) => {
+      this.Text = data;
+    });
   }
 }

@@ -1,24 +1,18 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  OnChanges,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LittleBoxOneServiceService } from '../little-box-one-service.service';
 
 @Component({
   selector: 'app-little-box-one-content',
   templateUrl: './little-box-one-content.component.html',
   styleUrls: ['./little-box-one-content.component.css'],
 })
-export class LittleBoxOneContentComponent implements OnInit, OnChanges {
-  @Output() textChanged = new EventEmitter<string>();
-  inputText: string;
+export class LittleBoxOneContentComponent implements OnInit {
+  input: string;
 
-  constructor() {}
+  constructor(private littleBoxOneServiceService: LittleBoxOneServiceService) {}
   ngOnInit() {}
 
-  ngOnChanges() {
-    this.textChanged.emit(this.inputText);
+  update() {
+    this.littleBoxOneServiceService.updateText(this.input);
   }
 }
